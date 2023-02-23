@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 const express = require('express');
 const { body } = require('express-validator');
 const app = express();
@@ -374,6 +376,16 @@ app.get('/orders', (req, res) => {
         res.status(200);
         res.setHeader('Content-Type', 'application/json');
         res.json(rows);
+    })
+    .catch(err => {
+        console.log(err);
+    });
+});
+
+app.get('/say', (req, res) => {
+    axios.post('https://3mb3x8hnuc.execute-api.us-east-2.amazonaws.com/default/my-function', {keyword: req.query.keyword})
+    .then(response => {
+        res.send(response.data);
     })
     .catch(err => {
         console.log(err);
